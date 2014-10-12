@@ -21,8 +21,6 @@ package org.mythtv.service.dvr;
 import org.joda.time.DateTime;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.service.MythtvService;
-import org.mythtv.service.dvr.v25.RecordedHelperV25;
-import org.mythtv.service.dvr.v26.RecordedHelperV26;
 import org.mythtv.service.dvr.v27.RecordedHelperV27;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.MythServiceApiRuntimeException;
@@ -93,16 +91,6 @@ public class RecordedService extends MythtvService {
 
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					passed = RecordedHelperV25.getInstance().process( this, locationProfile );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = RecordedHelperV26.getInstance().process( this, locationProfile );
-    					
-    					break;
     				case v027 :
 
     					passed = RecordedHelperV27.getInstance().process( this, locationProfile );
@@ -111,7 +99,7 @@ public class RecordedService extends MythtvService {
     					
     				default :
     					
-    					passed = RecordedHelperV26.getInstance().process( this, locationProfile );
+    					passed = RecordedHelperV27.getInstance().process( this, locationProfile );
 
     					break;
     			}
@@ -178,16 +166,6 @@ public class RecordedService extends MythtvService {
 
 		ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				
-				removed = RecordedHelperV25.getInstance().deleteRecorded( this, locationProfile, channelId, startTimestamp, recordId );
-				
-				break;
-			case v026 :
-				
-				removed = RecordedHelperV26.getInstance().deleteRecorded( this, locationProfile, channelId, startTimestamp, recordId );
-				
-				break;
 			case v027 :
 
 				removed = RecordedHelperV27.getInstance().deleteRecorded( this, locationProfile, channelId, startTimestamp, recordId );

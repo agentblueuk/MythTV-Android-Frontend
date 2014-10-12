@@ -21,25 +21,22 @@
  */
 package org.mythtv.service.content;
 
-import org.joda.time.DateTime;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.content.LiveStreamDaoHelper;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.RecordedDaoHelper;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.service.MythtvService;
-import org.mythtv.service.content.v25.LiveStreamHelperV25;
-import org.mythtv.service.content.v26.LiveStreamHelperV26;
-import org.mythtv.service.content.v27.LiveStreamHelperV27;
-import org.mythtv.service.util.NetworkHelper;
-import org.mythtv.services.api.ApiVersion;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import org.joda.time.DateTime;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.content.LiveStreamDaoHelper;
+import org.mythtv.db.dvr.RecordedDaoHelper;
+import org.mythtv.service.MythtvService;
+import org.mythtv.service.content.v27.LiveStreamHelperV27;
+import org.mythtv.service.util.NetworkHelper;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -317,17 +314,6 @@ public class LiveStreamService extends MythtvService {
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-
-				created = LiveStreamHelperV25.getInstance().create( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
-
-				break;
-
-			case v026 :
-				
-				created = LiveStreamHelperV26.getInstance().create( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
-				
-				break;
 			case v027 :
 
 				created = LiveStreamHelperV27.getInstance().create( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
@@ -363,16 +349,6 @@ public class LiveStreamService extends MythtvService {
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				
-				loaded = LiveStreamHelperV25.getInstance().load( this, locationProfile );
-				
-				break;
-			case v026 :
-				
-				loaded = LiveStreamHelperV26.getInstance().load( this, locationProfile );
-				
-				break;
 			case v027 :
 
 				loaded = LiveStreamHelperV27.getInstance().load( this, locationProfile );
@@ -381,7 +357,7 @@ public class LiveStreamService extends MythtvService {
 				
 			default :
 				
-				loaded = LiveStreamHelperV26.getInstance().load( this, locationProfile );
+				loaded = LiveStreamHelperV27.getInstance().load( this, locationProfile );
 
 				break;
 		}
@@ -402,16 +378,6 @@ public class LiveStreamService extends MythtvService {
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				
-				removed = LiveStreamHelperV25.getInstance().remove( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
-				
-				break;
-			case v026 :
-				
-				removed = LiveStreamHelperV26.getInstance().remove( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
-				
-				break;
 			case v027 :
 
 				removed = LiveStreamHelperV27.getInstance().remove( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );

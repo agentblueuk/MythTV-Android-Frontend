@@ -29,7 +29,7 @@ import org.joda.time.LocalTime;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractBaseHelper;
 import org.mythtv.db.dvr.RecordingRuleConstants;
-import org.mythtv.db.dvr.model.RecRule;
+import org.mythtv.services.api.v027.beans.RecRule;
 import org.mythtv.db.http.model.EtagInfoDelegate;
 import org.mythtv.service.channel.v27.ChannelHelperV27;
 import org.mythtv.service.util.NetworkHelper;
@@ -560,7 +560,7 @@ public class RecordingRuleHelperV27 extends AbstractBaseHelper {
 		versionRecRule.setChanId( recordingRule.getChanId() );
 		versionRecRule.setCallSign( recordingRule.getCallSign() );
 		versionRecRule.setFindDay( recordingRule.getFindDay() );
-		versionRecRule.setFindTime( recordingRule.getFindTime().toLocalTime() );
+		versionRecRule.setFindTime( recordingRule.getFindTime());
 		versionRecRule.setType( recordingRule.getType() );
 		versionRecRule.setSearchType( recordingRule.getSearchType() );
 		versionRecRule.setRecPriority( recordingRule.getRecPriority() );

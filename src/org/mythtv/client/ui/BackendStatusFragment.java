@@ -18,33 +18,6 @@
  */
 package org.mythtv.client.ui;
 
-import java.util.List;
-
-import org.joda.time.DateTimeZone;
-import org.mythtv.R;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.preferences.LocationProfile.LocationType;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
-import org.mythtv.client.ui.util.ProgramHelper;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.db.myth.model.Group;
-import org.mythtv.db.status.model.BackendStatus;
-import org.mythtv.db.status.model.Encoder;
-import org.mythtv.db.status.model.Guide;
-import org.mythtv.db.status.model.Job;
-import org.mythtv.db.status.model.Load;
-import org.mythtv.db.status.model.MachineInfo;
-import org.mythtv.service.channel.ChannelDownloadService;
-import org.mythtv.service.dvr.RecordedService;
-import org.mythtv.service.dvr.RecordingRuleService;
-import org.mythtv.service.dvr.UpcomingDownloadService;
-import org.mythtv.service.frontends.FrontendsDiscoveryService;
-import org.mythtv.service.guide.ProgramGuideDownloadService;
-import org.mythtv.service.status.BackendStatusService;
-import org.mythtv.service.util.DateUtils;
-import org.mythtv.services.api.v025.status.beans.Information;
-
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.BroadcastReceiver;
@@ -64,6 +37,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.util.List;
+import org.joda.time.DateTimeZone;
+import org.mythtv.R;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.preferences.LocationProfile.LocationType;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
+import org.mythtv.client.ui.util.ProgramHelper;
+import org.mythtv.service.channel.ChannelDownloadService;
+import org.mythtv.service.dvr.RecordedService;
+import org.mythtv.service.dvr.RecordingRuleService;
+import org.mythtv.service.dvr.UpcomingDownloadService;
+import org.mythtv.service.frontends.FrontendsDiscoveryService;
+import org.mythtv.service.guide.ProgramGuideDownloadService;
+import org.mythtv.service.status.BackendStatusService;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v025.status.beans.Information;
+
+import org.mythtv.services.api.v027.status.beans.BackendStatus;
+import org.mythtv.services.api.v027.status.beans.Encoder;
+import org.mythtv.services.api.v027.status.beans.Group;
+import org.mythtv.services.api.v027.status.beans.Guide;
+import org.mythtv.services.api.v027.status.beans.Job;
+import org.mythtv.services.api.v027.status.beans.Load;
+import org.mythtv.services.api.v027.status.beans.MachineInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * 

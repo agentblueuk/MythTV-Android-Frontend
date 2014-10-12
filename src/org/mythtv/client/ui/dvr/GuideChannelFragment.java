@@ -21,16 +21,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mythtv.R;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.util.MythtvListFragment;
-import org.mythtv.db.channel.ChannelConstants;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -52,12 +42,19 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import java.util.ArrayList;
+import java.util.List;
+import org.mythtv.R;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.util.MythtvListFragment;
+import org.mythtv.db.channel.ChannelConstants;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
 
 /**
  * @author dmfrey
@@ -258,9 +255,9 @@ public class GuideChannelFragment extends MythtvListFragment implements LoaderMa
 
 	        final ViewHolder mHolder = (ViewHolder) view.getTag();
 				        
-			mHolder.channel.setText( channel.getChannelNumber() );
+			mHolder.channel.setText( channel.getChanNum() );
 			mHolder.callsign.setText( channel.getCallSign() );
-			if(mSelectedChannel == null || mSelectedChannel.getChannelId() != channel.getChannelId()){
+			if(mSelectedChannel == null || mSelectedChannel.getChanId() != channel.getChanId()){
 				view.setBackgroundDrawable( mBackground );
 			}else {
 				view.setBackgroundDrawable( mBackgroundSelected );
@@ -269,9 +266,9 @@ public class GuideChannelFragment extends MythtvListFragment implements LoaderMa
 
 			if( downloadIcons ) {
 				
-				if( null != channel.getIconUrl() && !"".equals( channel.getIconUrl() ) ) {
+				if( null != channel.getIconURL()&& !"".equals( channel.getIconURL()) ) {
 				
-					String imageUri = mLocationProfileDaoHelper.findConnectedProfile( getActivity() ).getUrl() + "Guide/GetChannelIcon?ChanId=" + channel.getChannelId() + "&Width=32&Height=32";
+					String imageUri = mLocationProfileDaoHelper.findConnectedProfile( getActivity() ).getUrl() + "Guide/GetChannelIcon?ChanId=" + channel.getChanId() + "&Width=32&Height=32";
 					imageLoader.displayImage( imageUri, mHolder.icon, options, new SimpleImageLoadingListener() {
 
 						/* (non-Javadoc)
@@ -310,7 +307,7 @@ public class GuideChannelFragment extends MythtvListFragment implements LoaderMa
 				@Override
 				public void onClick( View v ) {
 
-					mOnChannelScrollListener.channelSelect( channel.getChannelId() );
+					mOnChannelScrollListener.channelSelect( channel.getChanId() );
 					mSelectedChannel = channel;
 					
 					for( View view : selectedViews ) {

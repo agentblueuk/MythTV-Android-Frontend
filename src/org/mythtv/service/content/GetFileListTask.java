@@ -24,8 +24,6 @@ package org.mythtv.service.content;
 import java.util.List;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.service.content.v25.FileListHelperV25;
-import org.mythtv.service.content.v26.FileListHelperV26;
 import org.mythtv.service.content.v27.FileListHelperV27;
 import org.mythtv.services.api.ApiVersion;
 
@@ -96,15 +94,6 @@ public class GetFileListTask extends AsyncTask<String, Void, List<String>> {
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( mLocationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				files = FileListHelperV25.getInstance().process( mContext, mLocationProfile, storageGroupName );
-				
-				break;
-			case v026 :
-				
-				files = FileListHelperV26.getInstance().process( mContext, mLocationProfile, storageGroupName );
-				
-				break;
 			case v027 :
 
 				files = FileListHelperV27.getInstance().process( mContext, mLocationProfile, storageGroupName );

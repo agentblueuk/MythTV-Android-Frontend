@@ -18,18 +18,6 @@
  */
 package org.mythtv.client.ui.media;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mythtv.R;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.myth.model.StorageGroupDirectory;
-import org.mythtv.service.content.GetFileListTask;
-import org.mythtv.service.myth.CreateStorageGroupTask;
-import org.mythtv.service.myth.GetHostsTask;
-import org.mythtv.service.myth.GetSettingTask;
-import org.mythtv.service.myth.GetStorageGroupsTask;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,11 +36,20 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import java.util.ArrayList;
+import java.util.List;
+import org.mythtv.R;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.service.content.GetFileListTask;
+import org.mythtv.service.myth.CreateStorageGroupTask;
+import org.mythtv.service.myth.GetHostsTask;
+import org.mythtv.service.myth.GetSettingTask;
+import org.mythtv.service.myth.GetStorageGroupsTask;
+import org.mythtv.services.api.v027.beans.StorageGroupDir;
 
 /**
  * @author Espen A. Fossen
@@ -505,12 +502,12 @@ public class GalleryGridAdapter extends BaseAdapter implements
 	 * @see org.mythtv.service.myth.GetStorageGroupsTask.TaskFinishedListener#onGetStorageGroupsTaskFinished(java.util.List)
 	 */
 	@Override
-	public void onGetStorageGroupsTaskFinished( List<StorageGroupDirectory> result ) {
+	public void onGetStorageGroupsTaskFinished( List<StorageGroupDir> result ) {
 		Log.v( TAG, "onGetStorageGroupsTaskFinished : enter" );
 
 		if( null != result && !result.isEmpty() ) {
 
-			for( StorageGroupDirectory sg : result ) {
+			for( StorageGroupDir sg : result ) {
 				
 				if( sg.getGroupName().equals( galleryStorageGroupName ) ) {
 						

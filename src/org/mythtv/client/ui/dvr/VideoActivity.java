@@ -18,16 +18,6 @@
  */
 package org.mythtv.client.ui.dvr;
 	
-import org.joda.time.DateTime;
-import org.mythtv.R;
-import org.mythtv.client.ui.AbstractMythtvFragmentActivity;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.content.LiveStreamDaoHelper;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.RecordedDaoHelper;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.service.content.GetLiveStreamTask;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -41,6 +31,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
+import org.joda.time.DateTime;
+import org.mythtv.R;
+import org.mythtv.client.ui.AbstractMythtvFragmentActivity;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.content.LiveStreamDaoHelper;
+import org.mythtv.db.dvr.RecordedDaoHelper;
+import org.mythtv.service.content.GetLiveStreamTask;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * @author John Baab
@@ -187,7 +186,7 @@ public class VideoActivity extends AbstractMythtvFragmentActivity implements Get
 		if( raw ) {
 			url = temp + "/Content/GetFile?StorageGroup=" + program.getRecording().getStorageGroup() + "&FileName=" + program.getFilename();
 		} else {
-			url = temp + liveStreamInfo.getRelativeUrl();
+			url = temp + liveStreamInfo.getRelativeURL();
 		}
 		
 	    Log.v( TAG, "URL: " + url );

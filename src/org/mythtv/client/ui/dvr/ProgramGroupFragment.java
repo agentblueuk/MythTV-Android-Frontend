@@ -28,7 +28,7 @@ import org.mythtv.db.dvr.ProgramConstants;
 import org.mythtv.db.dvr.ProgramDaoHelper;
 import org.mythtv.db.dvr.RecordedDaoHelper;
 import org.mythtv.db.dvr.RecordingConstants;
-import org.mythtv.db.dvr.model.Program;
+import org.mythtv.services.api.v027.status.beans.Program;
 import org.mythtv.db.dvr.programGroup.ProgramGroup;
 import org.mythtv.db.dvr.programGroup.ProgramGroupDaoHelper;
 import org.mythtv.db.preferences.LocationProfileDaoHelper;

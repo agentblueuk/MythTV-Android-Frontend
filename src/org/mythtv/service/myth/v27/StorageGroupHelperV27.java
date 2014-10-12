@@ -21,22 +21,20 @@
  */
 package org.mythtv.service.myth.v27;
 
+import android.content.Context;
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractBaseHelper;
-import org.mythtv.db.myth.model.StorageGroupDirectory;
 import org.mythtv.service.util.NetworkHelper;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.ETagInfo;
 import org.mythtv.services.api.connect.MythAccessFactory;
 import org.mythtv.services.api.v027.MythServicesTemplate;
+import org.mythtv.services.api.v027.beans.StorageGroupDir;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import android.content.Context;
-import android.util.Log;
 
 /**
  * @author Daniel Frey
@@ -78,7 +76,7 @@ public class StorageGroupHelperV27 extends AbstractBaseHelper {
 	 */
 	private StorageGroupHelperV27() { }
 
-	public List<StorageGroupDirectory> process( final Context context, final LocationProfile locationProfile, String storageGroupName ) {
+	public List<StorageGroupDir> process( final Context context, final LocationProfile locationProfile, String storageGroupName ) {
 		Log.v( TAG, "process : enter" );
 		
 		if( !NetworkHelper.getInstance().isMasterBackendConnected( context, locationProfile ) ) {
@@ -89,7 +87,7 @@ public class StorageGroupHelperV27 extends AbstractBaseHelper {
 		
 		mMythServicesTemplate = (MythServicesTemplate) MythAccessFactory.getServiceTemplateApiByVersion( mApiVersion, locationProfile.getUrl() );
 		
-		List<StorageGroupDirectory> storageGroupDirectories = null;
+		List<StorageGroupDir> storageGroupDirectories = null;
 
 		try {
 
@@ -107,10 +105,10 @@ public class StorageGroupHelperV27 extends AbstractBaseHelper {
 
 	// internal helpers
 	
-	private List<StorageGroupDirectory> downloadStorageGroups( final LocationProfile locationProfile, final String storageGroupName ) {
+	private List<StorageGroupDir> downloadStorageGroups( final LocationProfile locationProfile, final String storageGroupName ) {
 		Log.v( TAG, "downloadStorageGroups : enter" );
 	
-		List<StorageGroupDirectory> storageGroupDirectories = null;
+		List<StorageGroupDir> storageGroupDirectories = null;
 
 		try {
 			ResponseEntity<org.mythtv.services.api.v027.beans.StorageGroupDirList> responseEntity = mMythServicesTemplate.mythOperations().getStorageGroupDirs( storageGroupName, locationProfile.getHostname(), ETagInfo.createEmptyETag() );
@@ -136,20 +134,20 @@ public class StorageGroupHelperV27 extends AbstractBaseHelper {
 		return storageGroupDirectories;
 	}
 	
-	private List<StorageGroupDirectory> load( org.mythtv.services.api.v027.beans.StorageGroupDir[] versionStorageGroupDirectories ) {
+	private List<StorageGroupDir> load( org.mythtv.services.api.v027.beans.StorageGroupDir[] versionStorageGroupDirectories ) {
 		Log.v( TAG, "load : enter" );
 		
-		List<StorageGroupDirectory> storageGroupDirectories = new ArrayList<StorageGroupDirectory>();
+		List<StorageGroupDir> storageGroupDirectories = new ArrayList<StorageGroupDir>();
 		
 		if( null != versionStorageGroupDirectories && versionStorageGroupDirectories.length > 0 ) {
 			
-			for( org.mythtv.services.api.v027.beans.StorageGroupDir versionStorageGroupDirectory : versionStorageGroupDirectories ) {
+			for( org.mythtv.services.api.v027.beans.StorageGroupDir versionStorageGroupDir : versionStorageGroupDirectories ) {
 				
-				StorageGroupDirectory storageGroupDirectory = new StorageGroupDirectory();
-				storageGroupDirectory.setId( versionStorageGroupDirectory.getId() );
-				storageGroupDirectory.setGroupName( versionStorageGroupDirectory.getGroupName() );
-				storageGroupDirectory.setDirectoryName( versionStorageGroupDirectory.getDirName() );
-				storageGroupDirectory.setHostname( versionStorageGroupDirectory.getHostName() );
+				StorageGroupDir storageGroupDirectory = new StorageGroupDir();
+				storageGroupDirectory.setId( versionStorageGroupDir.getId() );
+				storageGroupDirectory.setGroupName( versionStorageGroupDir.getGroupName() );
+				storageGroupDirectory.setDirName(versionStorageGroupDir.getDirName() );
+				storageGroupDirectory.setHostName(versionStorageGroupDir.getHostName() );
 
 				storageGroupDirectories.add( storageGroupDirectory );
 			}

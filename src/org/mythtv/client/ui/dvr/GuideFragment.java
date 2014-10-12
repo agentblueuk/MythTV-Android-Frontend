@@ -18,23 +18,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.mythtv.R;
-import org.mythtv.client.ui.AbstractMythFragment;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.dvr.ProgramConstants;
-import org.mythtv.db.http.model.EtagInfoDelegate;
-import org.mythtv.service.guide.ProgramGuideDownloadService;
-import org.mythtv.service.util.DateUtils;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +34,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.mythtv.R;
+import org.mythtv.client.ui.AbstractMythFragment;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.db.dvr.ProgramConstants;
+import org.mythtv.db.http.model.EtagInfoDelegate;
+import org.mythtv.service.guide.ProgramGuideDownloadService;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
 
 /**
  * @author Daniel Frey
@@ -142,7 +140,7 @@ public class GuideFragment extends AbstractMythFragment
 		mLocationProfile = mLocationProfileDaoHelper.findConnectedProfile( getActivity() );
 		
 		channels = mChannelDaoHelper.findAll( getActivity(), mLocationProfile );
-		selectedChannelId = channels.get( 0 ).getChannelId();
+		selectedChannelId = channels.get( 0 ).getChanId();
 		
 		today = new DateTime( DateTimeZone.getDefault() ).withTimeAtStartOfDay();
 		selectedDate = today;

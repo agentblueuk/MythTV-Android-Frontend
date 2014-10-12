@@ -21,16 +21,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import org.mythtv.R;
-import org.mythtv.client.ui.AbstractMythFragment;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.client.ui.util.ProgramHelper;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.dvr.RecordingRuleDaoHelper;
-import org.mythtv.db.dvr.model.RecRule;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +31,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.mythtv.R;
+import org.mythtv.client.ui.AbstractMythFragment;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.client.ui.util.ProgramHelper;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.db.dvr.RecordingRuleDaoHelper;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.RecRule;
 
 /**
  * @author Daniel Frey
@@ -215,8 +214,8 @@ public class RecordingRuleFragment extends AbstractMythFragment {
 		String channel = "[Any]";
 		if( rule.getChanId() > 0 ) {
 			ChannelInfo channelInfo = mChannelDaoHelper.findByChannelId( getActivity(), mLocationProfile, (long) rule.getChanId() );
-			if( null != channelInfo && channelInfo.getChannelId() > -1 ) {
-				channel = channelInfo.getChannelNumber();
+			if( null != channelInfo && channelInfo.getChanId() > -1 ) {
+				channel = channelInfo.getChanNum();
 			}
 		}
 		

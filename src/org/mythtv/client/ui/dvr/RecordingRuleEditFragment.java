@@ -21,17 +21,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import org.mythtv.R;
-import org.mythtv.client.ui.AbstractMythFragment;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.client.ui.util.ProgramHelper;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.dvr.RecordingRuleDaoHelper;
-import org.mythtv.db.dvr.model.RecRule;
-import org.mythtv.service.dvr.RecordingRuleService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +38,16 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.mythtv.R;
+import org.mythtv.client.ui.AbstractMythFragment;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.client.ui.util.ProgramHelper;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.db.dvr.RecordingRuleDaoHelper;
+import org.mythtv.service.dvr.RecordingRuleService;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.RecRule;
 
 /**
  * @author Daniel Frey
@@ -272,8 +271,8 @@ public class RecordingRuleEditFragment extends AbstractMythFragment implements O
 		String channel = "[Any]";
 		if( rule.getChanId() > 0 ) {
 			ChannelInfo channelInfo = mChannelDaoHelper.findByChannelId( getActivity(), mLocationProfile, (long) rule.getChanId() );
-			if( null != channelInfo && channelInfo.getChannelId() > -1 ) {
-				channel = channelInfo.getChannelNumber();
+			if( null != channelInfo && channelInfo.getChanId() > -1 ) {
+				channel = channelInfo.getChanNum();
 			}
 		}
 
@@ -359,7 +358,7 @@ public class RecordingRuleEditFragment extends AbstractMythFragment implements O
 
 		if( !mRunningServiceHelper.isServiceRunning( getActivity(), "org.mythtv.service.dvr.RecordingRuleService" ) ) {
 			Intent updateIntent = new Intent( RecordingRuleService.ACTION_UPDATE );
-			updateIntent.putExtra( RecordingRuleService.ACTION_DATA, rule );
+			//FIXME updateIntent.putExtra( RecordingRuleService.ACTION_DATA, rule);
 			getActivity().startService( updateIntent );
 		}
 

@@ -18,23 +18,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import org.joda.time.DateTime;
-import org.mythtv.R;
-import org.mythtv.client.ui.AbstractMythFragment;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.preferences.LocationProfile.LocationType;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.db.content.LiveStreamDaoHelper;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.RecordedDaoHelper;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.db.dvr.programGroup.ProgramGroup;
-import org.mythtv.db.dvr.programGroup.ProgramGroupDaoHelper;
-import org.mythtv.service.content.GetLiveStreamTask;
-import org.mythtv.service.content.LiveStreamService;
-import org.mythtv.service.dvr.RecordedService;
-import org.mythtv.service.util.DateUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -58,11 +41,26 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import org.joda.time.DateTime;
+import org.mythtv.R;
+import org.mythtv.client.ui.AbstractMythFragment;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.preferences.LocationProfile.LocationType;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.db.content.LiveStreamDaoHelper;
+import org.mythtv.db.dvr.RecordedDaoHelper;
+import org.mythtv.db.dvr.programGroup.ProgramGroup;
+import org.mythtv.db.dvr.programGroup.ProgramGroupDaoHelper;
+import org.mythtv.service.content.GetLiveStreamTask;
+import org.mythtv.service.content.LiveStreamService;
+import org.mythtv.service.dvr.RecordedService;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 public class EpisodeFragment extends AbstractMythFragment implements GetLiveStreamTask.TaskFinishedListener {
 

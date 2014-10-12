@@ -18,17 +18,15 @@
  */
 package org.mythtv.db.dvr;
 
+import android.content.ContentUris;
+import android.content.Context;
 import java.util.List;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.db.guide.model.ProgramGuide;
-
-import android.content.ContentUris;
-import android.content.Context;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.ProgramGuide;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -78,7 +76,7 @@ public class ProgramGuideDaoHelper extends ProgramDaoHelper {
 //			
 //			channel.setPrograms( programs );
 //		}
-		guide.setChannels( channels );
+		guide.setChannels( (ChannelInfo[]) channels.toArray());
 		
 //		Log.d( TAG, "getProgramGuideForDate : enter" );
 		return guide;

@@ -18,24 +18,6 @@
  */
 package org.mythtv.client.ui.dvr;
 
-import org.mythtv.R;
-import org.mythtv.client.MainApplication;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.client.ui.util.MenuHelper;
-import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
-import org.mythtv.client.ui.util.MythtvListFragment;
-import org.mythtv.client.ui.util.ProgramHelper;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.dvr.RecordingRuleConstants;
-import org.mythtv.db.dvr.RecordingRuleDaoHelper;
-import org.mythtv.db.dvr.model.RecRule;
-import org.mythtv.db.http.EtagDaoHelper;
-import org.mythtv.db.http.model.EtagInfoDelegate;
-import org.mythtv.service.dvr.RecordingRuleService;
-import org.mythtv.service.util.DateUtils;
-import org.mythtv.service.util.RunningServiceHelper;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +39,23 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import org.mythtv.R;
+import org.mythtv.client.MainApplication;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.client.ui.util.MenuHelper;
+import org.mythtv.client.ui.util.MenuItemRefreshAnimated;
+import org.mythtv.client.ui.util.MythtvListFragment;
+import org.mythtv.client.ui.util.ProgramHelper;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.db.dvr.RecordingRuleConstants;
+import org.mythtv.db.dvr.RecordingRuleDaoHelper;
+import org.mythtv.db.http.EtagDaoHelper;
+import org.mythtv.db.http.model.EtagInfoDelegate;
+import org.mythtv.service.dvr.RecordingRuleService;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.service.util.RunningServiceHelper;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.RecRule;
 
 /**
  * @author Daniel Frey
@@ -411,8 +410,8 @@ public class RecordingRulesFragment extends MythtvListFragment implements Loader
 				// ChannelInfo channelInfo = mChannelDaoHelper.findByChannelId(
 				// getActivity(), mLocationProfile, (long) recRule.getChanId()
 				// );
-				if( null != channelInfo && channelInfo.getChannelId() > -1 ) {
-					channel = channelInfo.getChannelNumber();
+				if( null != channelInfo && channelInfo.getChanId() > -1 ) {
+					channel = channelInfo.getChanNum();
 				}
 			}
 

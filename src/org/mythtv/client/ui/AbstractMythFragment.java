@@ -18,20 +18,19 @@
  */
 package org.mythtv.client.ui;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import org.mythtv.R;
 import org.mythtv.client.MainApplication;
 import org.mythtv.db.dvr.ProgramGuideDaoHelper;
 import org.mythtv.db.dvr.UpcomingDaoHelper;
 import org.mythtv.db.http.EtagDaoHelper;
 import org.mythtv.db.preferences.LocationProfileDaoHelper;
-import org.mythtv.db.status.model.BackendStatus;
 import org.mythtv.service.util.RunningServiceHelper;
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import org.mythtv.services.api.v027.status.beans.BackendStatus;
 
 /**
  * @author Daniel Frey

@@ -21,25 +21,21 @@
  */
 package org.mythtv.service.myth;
 
-import java.util.List;
-
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.myth.model.StorageGroupDirectory;
-import org.mythtv.service.myth.v25.StorageGroupHelperV25;
-import org.mythtv.service.myth.v26.StorageGroupHelperV26;
-import org.mythtv.service.myth.v27.StorageGroupHelperV27;
-import org.mythtv.service.util.NetworkHelper;
-import org.mythtv.services.api.ApiVersion;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import java.util.List;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.service.myth.v27.StorageGroupHelperV27;
+import org.mythtv.service.util.NetworkHelper;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.v027.beans.StorageGroupDir;
 
 /**
  * @author Daniel Frey
  *
  */
-public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGroupDirectory>> {
+public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGroupDir>> {
 
 	private static final String TAG = GetStorageGroupsTask.class.getSimpleName();
 	
@@ -51,7 +47,7 @@ public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGr
 
 		void onGetStorageGroupsTaskStarted();
 		 
-	    void onGetStorageGroupsTaskFinished( List<StorageGroupDirectory> result );
+	    void onGetStorageGroupsTaskFinished( List<StorageGroupDir> result );
 	    
 	}
 
@@ -77,7 +73,7 @@ public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGr
 	 * @see android.os.AsyncTask#doInBackground(Params[])
 	 */
 	@Override
-	protected List<StorageGroupDirectory> doInBackground( String... params ) {
+	protected List<StorageGroupDir> doInBackground( String... params ) {
 		Log.d( TAG, "doInBackground : enter" );
 
 		if( null == mContext ) {
@@ -96,7 +92,7 @@ public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGr
 			throw new IllegalArgumentException( "String params are required" );
 		}
 
-		List<StorageGroupDirectory> storageGroupDirectoryList = null;
+		List<StorageGroupDir> storageGroupDirectoryList = null;
 		
 		if( !NetworkHelper.getInstance().isMasterBackendConnected( mContext, mLocationProfile ) ) {
 			Log.w( TAG, "process : Master Backend '" + mLocationProfile.getHostname() + "' is unreachable" );
@@ -108,16 +104,6 @@ public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGr
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( mLocationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				
-				storageGroupDirectoryList = StorageGroupHelperV25.getInstance().process( mContext, mLocationProfile, groupName );
-				
-				break;
-			case v026 :
-				
-				storageGroupDirectoryList = StorageGroupHelperV26.getInstance().process( mContext, mLocationProfile, groupName );
-				
-				break;
 			case v027 :
 
 				storageGroupDirectoryList = StorageGroupHelperV27.getInstance().process( mContext, mLocationProfile, groupName );
@@ -139,7 +125,7 @@ public class GetStorageGroupsTask extends AsyncTask<String, Void, List<StorageGr
 	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 	 */
 	@Override
-	protected void onPostExecute( List<StorageGroupDirectory> result ) {
+	protected void onPostExecute( List<StorageGroupDir> result ) {
 		Log.d( TAG, "onPostExecute : enter" );
 		super.onPostExecute( result );
 

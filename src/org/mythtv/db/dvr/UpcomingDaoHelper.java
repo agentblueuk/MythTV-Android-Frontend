@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.dvr.model.Program;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 import android.content.ContentUris;
 import android.content.Context;

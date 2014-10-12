@@ -18,20 +18,18 @@
  */
 package org.mythtv.db.channel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.service.util.DateUtils;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.DateTime;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.AbstractDaoHelper;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
 //import android.util.Log;
 
 
@@ -238,7 +236,7 @@ public class ChannelDaoHelper extends AbstractDaoHelper {
 
 		String[] projection = new String[] { ChannelConstants._ID };
 		String selection = ChannelConstants.FIELD_CHAN_ID + " = ?";
-		String[] selectionArgs = new String[] { String.valueOf( channelInfo.getChannelId() ) };
+		String[] selectionArgs = new String[] { String.valueOf( channelInfo.getChanId() ) };
 		
 		selection = appendLocationHostname( context, locationProfile, selection, ChannelConstants.TABLE_NAME );
 		
@@ -317,7 +315,7 @@ public class ChannelDaoHelper extends AbstractDaoHelper {
 		}
 		
 		String selection = ChannelConstants.FIELD_CHAN_ID + " = ?";
-		String[] selectionArgs = new String[] { String.valueOf( channelInfo.getChannelId() ) };
+		String[] selectionArgs = new String[] { String.valueOf( channelInfo.getChanId() ) };
 		
 		selection = appendLocationHostname( context, locationProfile, selection, ChannelConstants.TABLE_NAME );
 		
@@ -447,31 +445,31 @@ public class ChannelDaoHelper extends AbstractDaoHelper {
 		}
 
 		ChannelInfo channelInfo = new ChannelInfo();
-		channelInfo.setChannelId( channelId );
-		channelInfo.setChannelNumber( channelNumber );
+		channelInfo.setChanId( channelId );
+		channelInfo.setChanNum(channelNumber );
 		channelInfo.setCallSign( callsign );
-		channelInfo.setIconUrl( iconUrl );
+		channelInfo.setIconURL(iconUrl );
 		channelInfo.setChannelName( channelName );
-		channelInfo.setMultiplexId( multiplexId );
+		channelInfo.setMplexId(multiplexId );
 		channelInfo.setTransportId( transportId );
 		channelInfo.setServiceId( serviceId );
 		channelInfo.setNetworkId( networkId );
-		channelInfo.setAtscMajorChannel( atscMajorChannel );
-		channelInfo.setAtscMinorChannel( atscMinorChannel );
+		channelInfo.setATSCMajorChan(atscMajorChannel );
+		channelInfo.setATSCMinorChan(atscMinorChannel );
 		channelInfo.setFormat( format );
 		channelInfo.setModulation( modulation );
 		channelInfo.setFrequency( frequency );
 		channelInfo.setFrequencyId( frequencyId );
-		channelInfo.setFrequenceTable( frequencyTable );
+		channelInfo.setFrequencyTable(frequencyTable );
 		channelInfo.setFineTune( fineTune );
-		channelInfo.setSiStandard( sisStandard );
-		channelInfo.setChannelFilters( channelFilters );
+		channelInfo.setSIStandard(sisStandard );
+		channelInfo.setChanFilters(channelFilters );
 		channelInfo.setSourceId( sourceId );
 		channelInfo.setInputId( inputId );
-		channelInfo.setCommercialFree( commercialFree );
-		channelInfo.setUseEit( useEit == 1 ? true : false );
-		channelInfo.setVisible( visible == 1 ? true : false );
-		channelInfo.setXmltvId( xmltvId );
+		channelInfo.setCommFree(commercialFree );
+		channelInfo.setUseEIT(useEit == 1 ? true : false );
+		channelInfo.setVisible(visible == 1 ? true : false );
+		channelInfo.setXMLTVID(xmltvId );
 		channelInfo.setDefaultAuth( defaultAuth );
 		
 //		Log.v( TAG, "convertCursorToChannelInfo : exit" );
@@ -510,38 +508,38 @@ public class ChannelDaoHelper extends AbstractDaoHelper {
 	public static ContentValues convertChannelInfoToContentValues( final LocationProfile locationProfile, final DateTime lastModified, final ChannelInfo channelInfo ) {
 //		Log.v( TAG, "convertChannelToContentValues : enter" );
 		
-		String formattedChannelNumber = formatChannelNumber( channelInfo.getChannelNumber() );
+		String formattedChannelNumber = formatChannelNumber( channelInfo.getChannelName() );
 		if( formattedChannelNumber.startsWith( "." ) ) {
 			formattedChannelNumber = formattedChannelNumber.substring( 1 );
 		}
 
 		ContentValues values = new ContentValues();
-		values.put( ChannelConstants.FIELD_CHAN_ID, channelInfo.getChannelId() );
-		values.put( ChannelConstants.FIELD_CHAN_NUM, channelInfo.getChannelNumber() );
+		values.put( ChannelConstants.FIELD_CHAN_ID, channelInfo.getChanId() );
+		values.put( ChannelConstants.FIELD_CHAN_NUM, channelInfo.getChanNum() );
 		values.put( ChannelConstants.FIELD_CHAN_NUM_FORMATTED, ( null == formattedChannelNumber || formattedChannelNumber.length() == 0 ) ? 0.0 : Float.parseFloat( formattedChannelNumber ) );
 		values.put( ChannelConstants.FIELD_CALLSIGN, channelInfo.getCallSign() );
-		values.put( ChannelConstants.FIELD_ICON_URL, channelInfo.getIconUrl() );
+		values.put( ChannelConstants.FIELD_ICON_URL, channelInfo.getIconURL() );
 		values.put( ChannelConstants.FIELD_CHANNEL_NAME, channelInfo.getChannelName() );
-		values.put( ChannelConstants.FIELD_MPLEX_ID, channelInfo.getMultiplexId() );
+		values.put( ChannelConstants.FIELD_MPLEX_ID, channelInfo.getMplexId() );
 		values.put( ChannelConstants.FIELD_TRANSPORT_ID, channelInfo.getTransportId() );
 		values.put( ChannelConstants.FIELD_SERVICE_ID, channelInfo.getServiceId() );
 		values.put( ChannelConstants.FIELD_NETWORK_ID, channelInfo.getNetworkId() );
-		values.put( ChannelConstants.FIELD_ATSC_MAJOR_CHAN, channelInfo.getAtscMajorChannel() );
-		values.put( ChannelConstants.FIELD_ATSC_MINOR_CHAN, channelInfo.getAtscMinorChannel() );
+		values.put( ChannelConstants.FIELD_ATSC_MAJOR_CHAN, channelInfo.getATSCMajorChan() );
+		values.put( ChannelConstants.FIELD_ATSC_MINOR_CHAN, channelInfo.getATSCMinorChan() );
 		values.put( ChannelConstants.FIELD_FORMAT, channelInfo.getFormat() );
 		values.put( ChannelConstants.FIELD_MODULATION, channelInfo.getModulation() );
 		values.put( ChannelConstants.FIELD_FREQUENCY, channelInfo.getFrequency() );
 		values.put( ChannelConstants.FIELD_FREQUENCY_ID, channelInfo.getFrequencyId() );
-		values.put( ChannelConstants.FIELD_FREQUENCY_TABLE, channelInfo.getFrequenceTable() );
+		values.put( ChannelConstants.FIELD_FREQUENCY_TABLE, channelInfo.getFrequencyTable() );
 		values.put( ChannelConstants.FIELD_FINE_TUNE, channelInfo.getFineTune() );
-		values.put( ChannelConstants.FIELD_SIS_STANDARD, channelInfo.getSiStandard() );
-		values.put( ChannelConstants.FIELD_CHAN_FILTERS, channelInfo.getChannelFilters() );
+		values.put( ChannelConstants.FIELD_SIS_STANDARD, channelInfo.getSIStandard() );
+		values.put( ChannelConstants.FIELD_CHAN_FILTERS, channelInfo.getChannelName() );
 		values.put( ChannelConstants.FIELD_SOURCE_ID, channelInfo.getSourceId() );
 		values.put( ChannelConstants.FIELD_INPUT_ID, channelInfo.getInputId() );
-		values.put( ChannelConstants.FIELD_COMM_FREE, channelInfo.getCommercialFree() );
-		values.put( ChannelConstants.FIELD_USE_EIT, ( channelInfo.isUseEit() ? 1 : 0 ) );
+		values.put( ChannelConstants.FIELD_COMM_FREE, channelInfo.getCommFree() );
+		values.put( ChannelConstants.FIELD_USE_EIT, ( channelInfo.isUseEIT() ? 1 : 0 ) );
 		values.put( ChannelConstants.FIELD_VISIBLE, ( channelInfo.isVisible() ? 1 : 0 ) );
-		values.put( ChannelConstants.FIELD_XMLTV_ID, channelInfo.getXmltvId() );
+		values.put( ChannelConstants.FIELD_XMLTV_ID, channelInfo.getXMLTVID() );
 		values.put( ChannelConstants.FIELD_DEFAULT_AUTH, channelInfo.getDefaultAuth() );
 		values.put( ChannelConstants.FIELD_MASTER_HOSTNAME, locationProfile.getHostname() );
 		values.put( ChannelConstants.FIELD_LAST_MODIFIED_DATE, lastModified.getMillis() );

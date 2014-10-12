@@ -18,20 +18,19 @@
  */
 package org.mythtv.service.preferences;
 
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.preferences.LocationProfileConstants;
-import org.mythtv.db.status.model.BackendStatus;
-import org.mythtv.service.MythtvService;
-import org.mythtv.service.util.NetworkHelper;
-import org.mythtv.services.api.ApiVersion;
-import org.mythtv.services.api.connect.MythAccessFactory;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.preferences.LocationProfileConstants;
+import org.mythtv.service.MythtvService;
+import org.mythtv.service.util.NetworkHelper;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.connect.MythAccessFactory;
+import org.mythtv.services.api.v027.status.beans.BackendStatus;
 
 /**
  * @author Daniel Frey

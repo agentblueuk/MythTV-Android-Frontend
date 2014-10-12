@@ -18,27 +18,25 @@
  */
 package org.mythtv.db.dvr;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.db.channel.ChannelDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.content.LiveStreamConstants;
-import org.mythtv.db.content.LiveStreamDaoHelper;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.db.dvr.model.Recording;
-import org.mythtv.service.util.DateUtils;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.AbstractDaoHelper;
+import org.mythtv.db.channel.ChannelDaoHelper;
+import org.mythtv.db.content.LiveStreamConstants;
+import org.mythtv.db.content.LiveStreamDaoHelper;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.status.beans.Recording;
 
 /**
  * @author Daniel Frey

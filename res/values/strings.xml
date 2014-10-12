@@ -22,10 +22,10 @@
 
 <resources>
     
-    <string name="app_version" translatable="false">1.20.7</string>
+    <string name="app_version" translatable="false">1.20.7-WJT</string>
 
     <string name="app_name">MythTV Android Frontend</string>
-    <string name="app_short_name">MAF</string>
+    <string name="app_short_name">MAF Plus</string>
     
     <string name="item_network_title">Searching network for MythTV&#8230;</string>
 	<string name="item_network_caption">Make sure you are on the same network as your MythTV Master Backend</string>

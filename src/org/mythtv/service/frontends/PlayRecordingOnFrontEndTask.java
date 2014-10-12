@@ -22,7 +22,7 @@
 package org.mythtv.service.frontends;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.dvr.model.Program;
+import org.mythtv.services.api.v027.status.beans.Program;
 import org.mythtv.service.util.NetworkHelper;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.ETagInfo;

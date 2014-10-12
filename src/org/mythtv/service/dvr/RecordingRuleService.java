@@ -18,19 +18,16 @@
  */
 package org.mythtv.service.dvr;
 
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.dvr.model.RecRule;
-import org.mythtv.service.MythtvService;
-import org.mythtv.service.dvr.v25.RecordingRuleHelperV25;
-import org.mythtv.service.dvr.v26.RecordingRuleHelperV26;
-import org.mythtv.service.dvr.v27.RecordingRuleHelperV27;
-import org.mythtv.services.api.ApiVersion;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.service.MythtvService;
+import org.mythtv.service.dvr.v27.RecordingRuleHelperV27;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.v027.beans.RecRule;
 
 /**
  * @author Daniel Frey
@@ -87,16 +84,6 @@ public class RecordingRuleService extends MythtvService {
 
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025:
-    					
-    					passed = RecordingRuleHelperV25.getInstance().process( this, locationProfile );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = RecordingRuleHelperV26.getInstance().process( this, locationProfile );
-    					
-    					break;
     				case v027 :
 
     					passed = RecordingRuleHelperV27.getInstance().process( this, locationProfile );
@@ -132,16 +119,6 @@ public class RecordingRuleService extends MythtvService {
     			
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					passed = RecordingRuleHelperV25.getInstance().add( this, locationProfile, recRule );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = RecordingRuleHelperV26.getInstance().add( this, locationProfile, recRule );
-    					
-    					break;
     				case v027 :
 
     					passed = RecordingRuleHelperV27.getInstance().add( this, locationProfile, recRule );
@@ -173,16 +150,6 @@ public class RecordingRuleService extends MythtvService {
     			
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					passed = RecordingRuleHelperV25.getInstance().update( this, locationProfile, recRule );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = RecordingRuleHelperV26.getInstance().update( this, locationProfile, recRule );
-    					
-    					break;
     				case v027 :
 
     					passed = RecordingRuleHelperV27.getInstance().update( this, locationProfile, recRule );
@@ -214,16 +181,6 @@ public class RecordingRuleService extends MythtvService {
     			
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					passed = RecordingRuleHelperV25.getInstance().remove( this, locationProfile, recRule );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = RecordingRuleHelperV26.getInstance().remove( this, locationProfile, recRule );
-    					
-    					break;
     				case v027 :
 
     					passed = RecordingRuleHelperV27.getInstance().remove( this, locationProfile, recRule );

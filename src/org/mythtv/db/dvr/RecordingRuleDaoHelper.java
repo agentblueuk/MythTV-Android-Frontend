@@ -28,7 +28,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.db.dvr.model.RecRule;
+import org.mythtv.services.api.v027.beans.RecRule;
 import org.mythtv.service.util.DateUtils;
 
 import android.content.ContentUris;
@@ -553,8 +553,8 @@ public class RecordingRuleDaoHelper extends AbstractDaoHelper {
 		recRule.setInetref( inetref );
 		recRule.setChanId( channelId );
 		recRule.setCallSign( callSign );
-		recRule.setDay( day );
-		recRule.setTime( time );
+		recRule.setFindDay( day );
+		recRule.setFindTime( time );
 		recRule.setFindId( findId );
 		recRule.setType( type );
 		recRule.setSearchType( searchType );
@@ -650,8 +650,8 @@ public class RecordingRuleDaoHelper extends AbstractDaoHelper {
 		values.put( RecordingRuleConstants.FIELD_INETREF, recRule.getInetref() );
 		values.put( RecordingRuleConstants.FIELD_CHAN_ID, recRule.getChanId() );
 		values.put( RecordingRuleConstants.FIELD_CALLSIGN, recRule.getCallSign() );
-		values.put( RecordingRuleConstants.FIELD_DAY, recRule.getDay() );
-		values.put( RecordingRuleConstants.FIELD_TIME, recRule.getTime() );
+		values.put( RecordingRuleConstants.FIELD_DAY, recRule.getFindDay());
+		values.put( RecordingRuleConstants.FIELD_TIME, recRule.getFindTime() );
 		values.put( RecordingRuleConstants.FIELD_FIND_ID, recRule.getFindId() );
 		values.put( RecordingRuleConstants.FIELD_TYPE, recRule.getType() );
 		values.put( RecordingRuleConstants.FIELD_SEARCH_TYPE, recRule.getSearchType() );

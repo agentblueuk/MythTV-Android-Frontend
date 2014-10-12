@@ -21,22 +21,20 @@
  */
 package org.mythtv.db.content;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.db.channel.model.ChannelInfo;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.model.Program;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.DateTime;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.AbstractDaoHelper;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.ChannelInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -500,8 +498,8 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 		liveStreamInfo.setPercentComplete( percentComplete );
 		liveStreamInfo.setCreated( created );
 		liveStreamInfo.setLastModified( lastModified );
-		liveStreamInfo.setRelativeUrl( relativeUrl );
-		liveStreamInfo.setFullUrl( fullUrl );
+		liveStreamInfo.setRelativeURL(relativeUrl );
+		liveStreamInfo.setFullURL(fullUrl );
 		liveStreamInfo.setStatusStr( statusStr );
 		liveStreamInfo.setStatusInt( statusInt );
 		liveStreamInfo.setStatusMessage( statusMessage );
@@ -575,8 +573,8 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 		values.put( LiveStreamConstants.FIELD_PERCENT_COMPLETE, liveStreamInfo.getPercentComplete() );
 		values.put( LiveStreamConstants.FIELD_CREATED, null != liveStreamInfo.getCreated() ? liveStreamInfo.getCreated().getMillis() : -1 );
 		values.put( LiveStreamConstants.FIELD_LAST_MODIFIED, null != liveStreamInfo.getLastModified() ? liveStreamInfo.getLastModified().getMillis() : -1 );
-		values.put( LiveStreamConstants.FIELD_RELATIVE_URL, liveStreamInfo.getRelativeUrl() );
-		values.put( LiveStreamConstants.FIELD_FULL_URL, liveStreamInfo.getFullUrl() );
+		values.put( LiveStreamConstants.FIELD_RELATIVE_URL, liveStreamInfo.getRelativeURL() );
+		values.put( LiveStreamConstants.FIELD_FULL_URL, liveStreamInfo.getFullURL() );
 		values.put( LiveStreamConstants.FIELD_STATUS_STR, liveStreamInfo.getStatusStr() );
 		values.put( LiveStreamConstants.FIELD_STATUS_INT, liveStreamInfo.getStatusInt() );
 		values.put( LiveStreamConstants.FIELD_STATUS_MESSAGE, liveStreamInfo.getStatusMessage() );

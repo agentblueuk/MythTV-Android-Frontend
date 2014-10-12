@@ -20,8 +20,6 @@ package org.mythtv.service.guide;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.service.MythtvService;
-import org.mythtv.service.guide.v25.ProgramGuideHelperV25;
-import org.mythtv.service.guide.v26.ProgramGuideHelperV26;
 import org.mythtv.service.guide.v27.ProgramGuideHelperV27;
 import org.mythtv.service.util.NetworkHelper;
 import org.mythtv.services.api.ApiVersion;
@@ -85,16 +83,6 @@ public class ProgramGuideDownloadService extends MythtvService {
 
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					passed = ProgramGuideHelperV25.getInstance().process( this, locationProfile );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = ProgramGuideHelperV26.getInstance().process( this, locationProfile );
-    					
-    					break;
     				case v027 :
 
     					passed = ProgramGuideHelperV27.getInstance().process( this, locationProfile );

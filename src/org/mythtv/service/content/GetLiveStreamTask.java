@@ -21,18 +21,15 @@
  */
 package org.mythtv.service.content;
 
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.content.LiveStreamDaoHelper;
-import org.mythtv.db.content.model.LiveStreamInfo;
-import org.mythtv.db.dvr.model.Program;
-import org.mythtv.service.content.v25.LiveStreamHelperV25;
-import org.mythtv.service.content.v26.LiveStreamHelperV26;
-import org.mythtv.service.content.v27.LiveStreamHelperV27;
-import org.mythtv.services.api.ApiVersion;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.content.LiveStreamDaoHelper;
+import org.mythtv.service.content.v27.LiveStreamHelperV27;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.v027.beans.LiveStreamInfo;
+import org.mythtv.services.api.v027.status.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -112,18 +109,6 @@ public class GetLiveStreamTask extends AsyncTask<Integer, Void, Boolean> {
 
 		ApiVersion apiVersion = ApiVersion.valueOf( mLocationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025:
-
-				updated = LiveStreamHelperV25.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannelInfo().getChannelId(), mProgram.getStartTime() );
-
-				break;
-
-			case v026 :
-
-				updated = LiveStreamHelperV26.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannelInfo().getChannelId(), mProgram.getStartTime() );
-
-				break;
-
 			case v027 :
 
 				updated = LiveStreamHelperV27.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannelInfo().getChannelId(), mProgram.getStartTime() );

@@ -22,8 +22,6 @@
 package org.mythtv.service.frontends;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.service.frontends.v25.StatusHelperV25;
-import org.mythtv.service.frontends.v26.StatusHelperV26;
 import org.mythtv.service.frontends.v27.StatusHelperV27;
 import org.mythtv.services.api.ApiVersion;
 
@@ -98,16 +96,6 @@ public class GetStatusTask extends AsyncTask<String, Void, org.mythtv.db.fronten
 		
 		ApiVersion apiVersion = ApiVersion.valueOf( mLocationProfile.getVersion() );
 		switch( apiVersion ) {
-			case v025 :
-				
-				status = StatusHelperV25.getInstance().process( mContext, mLocationProfile, url );
-				
-				break;
-			case v026 :
-				
-				status = StatusHelperV26.getInstance().process( mContext, mLocationProfile, url );
-				
-				break;
 			case v027 :
 
 				status = StatusHelperV27.getInstance().process( mContext, mLocationProfile, url );

@@ -21,19 +21,16 @@
  */
 package org.mythtv.service.status;
 
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.status.model.BackendStatus;
-import org.mythtv.service.MythtvService;
-import org.mythtv.service.status.v25.BackendStatusHelperV25;
-import org.mythtv.service.status.v26.BackendStatusHelperV26;
-import org.mythtv.service.status.v27.BackendStatusHelperV27;
-import org.mythtv.services.api.ApiVersion;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.service.MythtvService;
+import org.mythtv.service.status.v27.BackendStatusHelperV27;
+import org.mythtv.services.api.ApiVersion;
+import org.mythtv.services.api.v027.status.beans.BackendStatus;
 
 /**
  * @author Daniel Frey
@@ -77,18 +74,6 @@ public class BackendStatusService extends MythtvService {
     		
     			ApiVersion apiVersion = ApiVersion.valueOf( mLocationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					
-    					mBackendStatus = BackendStatusHelperV25.getInstance().process( this, mLocationProfile );
-
-    					break;
-
-    				case v026 :
-
-    					mBackendStatus = BackendStatusHelperV26.getInstance().process( this, mLocationProfile );
-
-    					break;
-    				
     				case v027 :
 
     					mBackendStatus = BackendStatusHelperV27.getInstance().process( this, mLocationProfile );

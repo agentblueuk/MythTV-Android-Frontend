@@ -20,8 +20,6 @@ package org.mythtv.service.channel;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.service.MythtvService;
-import org.mythtv.service.channel.v25.ChannelHelperV25;
-import org.mythtv.service.channel.v26.ChannelHelperV26;
 import org.mythtv.service.channel.v27.ChannelHelperV27;
 import org.mythtv.services.api.ApiVersion;
 
@@ -84,15 +82,6 @@ public class ChannelDownloadService extends MythtvService {
     			
     			ApiVersion apiVersion = ApiVersion.valueOf( locationProfile.getVersion() );
     			switch( apiVersion ) {
-    				case v025 :
-    					passed = ChannelHelperV25.getInstance().process( this, locationProfile );
-    					
-    					break;
-    				case v026 :
-    					
-    					passed = ChannelHelperV26.getInstance().process( this, locationProfile );
-    					
-    					break;
     				case v027 :
 
     					passed = ChannelHelperV27.getInstance().process( this, locationProfile );

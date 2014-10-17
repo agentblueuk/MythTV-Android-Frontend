@@ -60,7 +60,7 @@ import org.mythtv.service.content.LiveStreamService;
 import org.mythtv.service.dvr.RecordedService;
 import org.mythtv.service.util.DateUtils;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 
 public class EpisodeFragment extends AbstractMythFragment implements GetLiveStreamTask.TaskFinishedListener {
 
@@ -487,7 +487,7 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 
 			// channel number
 			tView = (TextView) activity.findViewById( R.id.textView_episode_ch_num );
-			tView.setText( program.getChannelInfo().getChannelNumber() );
+			tView.setText( program.getChannel().getChanNum() );
 
 			// airdate
 			tView = (TextView) activity.findViewById( R.id.textView_episode_airdate );
@@ -521,11 +521,11 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startPlayer : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startPlayer : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startPlayer : channelId=" + program.getChannel().getChanId()+ ", startTime=" + program.getStartTime().getMillis() );
 		}
 
 		Intent playerIntent = new Intent( getActivity(), VideoActivity.class );
-		playerIntent.putExtra( VideoActivity.EXTRA_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+		playerIntent.putExtra( VideoActivity.EXTRA_CHANNEL_ID, program.getChannel().getChanId());
 		playerIntent.putExtra( VideoActivity.EXTRA_START_TIME, program.getStartTime().getMillis() );
 		playerIntent.putExtra( VideoActivity.EXTRA_RAW, raw );
 		startActivity( playerIntent );
@@ -537,11 +537,11 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startPlayStreamService : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startPlayStreamService : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startPlayStreamService : channelId=" + program.getChannel().getChanId() + ", startTime=" + program.getStartTime().getMillis() );
 		}
 
 //		Intent intent = new Intent( LiveStreamService.ACTION_PLAY );
-//		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+//		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannel().getChanId() );
 //		intent.putExtra( LiveStreamService.KEY_START_TIMESTAMP, program.getStartTime().getMillis() );
 //		getActivity().startService( intent );
 
@@ -554,11 +554,11 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startCreateStreamService : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startCreateStreamService : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startCreateStreamService : channelId=" + program.getChannel().getChanId() + ", startTime=" + program.getStartTime().getMillis() );
 		}
 		
 		Intent intent = new Intent( LiveStreamService.ACTION_CREATE );
-		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannel().getChanId() );
 		intent.putExtra( LiveStreamService.KEY_START_TIMESTAMP, program.getStartTime().getMillis() );
 		getActivity().startService( intent );
 
@@ -569,7 +569,7 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startUpdateStreamService : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startUpdateStreamService : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startUpdateStreamService : channelId=" + program.getChannel().getChanId() + ", startTime=" + program.getStartTime().getMillis() );
 
 			LiveStreamInfo liveStreamInfo = mLiveStreamDaoHelper.findByProgram( getActivity(), mLocationProfile, program );
 			if( null != liveStreamInfo ) {
@@ -577,7 +577,7 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 				if( liveStreamInfo.getPercentComplete() < 100 ) {
 
 					Intent intent = new Intent( LiveStreamService.ACTION_LOAD );
-					intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+					intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannel().getChanId() );
 					intent.putExtra( LiveStreamService.KEY_START_TIMESTAMP, program.getStartTime().getMillis() );
 					getActivity().startService( intent );
 					
@@ -594,13 +594,13 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startRemoveStreamService : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startRemoveStreamService : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startRemoveStreamService : channelId=" + program.getChannel().getChanId() + ", startTime=" + program.getStartTime().getMillis() );
 		}
 
 		getActivity().stopService( new Intent( getActivity(), LiveStreamService.class ) );
 		
 		Intent intent = new Intent( LiveStreamService.ACTION_REMOVE );
-		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+		intent.putExtra( LiveStreamService.KEY_CHANNEL_ID, program.getChannel().getChanId() );
 		intent.putExtra( LiveStreamService.KEY_START_TIMESTAMP, program.getStartTime().getMillis() );
 		getActivity().startService( intent );
 
@@ -611,13 +611,13 @@ public class EpisodeFragment extends AbstractMythFragment implements GetLiveStre
 		Log.i( TAG, "startRemoveProgramService : enter" );
 		
 		if( null != program ) {
-			Log.v( TAG, "startRemoveProgramService : channelId=" + program.getChannelInfo().getChannelId() + ", startTime=" + program.getStartTime().getMillis() );
+			Log.v( TAG, "startRemoveProgramService : channelId=" + program.getChannel().getChanId() + ", startTime=" + program.getStartTime().getMillis() );
 		}
 
 		startRemoveStreamService();
 		
 		Intent intent = new Intent( RecordedService.ACTION_REMOVE );
-		intent.putExtra( RecordedService.KEY_CHANNEL_ID, program.getChannelInfo().getChannelId() );
+		intent.putExtra( RecordedService.KEY_CHANNEL_ID, program.getChannel().getChanId() );
 		intent.putExtra( RecordedService.KEY_START_TIMESTAMP, program.getStartTime().getMillis() );
 		intent.putExtra( RecordedService.KEY_RECORD_ID, program.getRecording().getRecordId() );
 		getActivity().startService( intent );

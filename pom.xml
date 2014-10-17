@@ -161,7 +161,7 @@
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
-        
+       <!-- 
         	<plugin>
             	<groupId>com.mycila.maven-license-plugin</groupId>
             	<artifactId>maven-license-plugin</artifactId>
@@ -196,7 +196,7 @@
                 	</execution>
             	</executions>
         	</plugin>
-
+-->
 	      	<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-surefire-plugin</artifactId>

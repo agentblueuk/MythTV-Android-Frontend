@@ -25,7 +25,7 @@ import org.mythtv.client.ui.util.MythtvListFragment;
 import org.mythtv.client.ui.util.ProgramHelper;
 import org.mythtv.db.dvr.ProgramConstants;
 import org.mythtv.db.dvr.UpcomingDaoHelper;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 import org.mythtv.db.preferences.LocationProfileDaoHelper;
 import org.mythtv.service.util.DateUtils;
 
@@ -202,8 +202,8 @@ public class UpcomingFragment extends MythtvListFragment implements LoaderManage
 			mHolder.category.setBackgroundColor( mProgramHelper.getCategoryColor( program.getCategory() ) );
 			mHolder.title.setText( program.getTitle() );
 			mHolder.subTitle.setText( program.getSubTitle() );
-			mHolder.channel.setText( null != program.getChannelInfo() ? program.getChannelInfo().getChannelNumber() : "" );
-            mHolder.duration.setText( program.getDurationInMinutes() + " minutes" );
+			mHolder.channel.setText( null != program.getChannel() ? program.getChannel().getChanNum() : "" );
+// FIXME: set duration                        mHolder.duration.setText( program. getDurationInMinutes() + " minutes" );
             mHolder.startTime.setText(DateUtils.getTimeWithLocaleFormatting(program.getStartTime(), getMainApplication().getClockType()));
 
 			//Log.v( TAG, "UpcomingCursorAdapter.bindView : exit" );

@@ -29,7 +29,7 @@ import org.mythtv.db.content.LiveStreamDaoHelper;
 import org.mythtv.service.content.v27.LiveStreamHelperV27;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -111,13 +111,13 @@ public class GetLiveStreamTask extends AsyncTask<Integer, Void, Boolean> {
 		switch( apiVersion ) {
 			case v027 :
 
-				updated = LiveStreamHelperV27.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannelInfo().getChannelId(), mProgram.getStartTime() );
+				updated = LiveStreamHelperV27.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannel().getChanId(), mProgram.getStartTime() );
 
 				break;
 
 			default :
 
-				updated = LiveStreamHelperV27.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannelInfo().getChannelId(), mProgram.getStartTime() );
+				updated = LiveStreamHelperV27.getInstance().update( mContext, mLocationProfile, mLiveStreamInfoId, mProgram.getChannel().getChanId(), mProgram.getStartTime() );
 
 				break;
 		}

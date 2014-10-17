@@ -458,7 +458,7 @@ public class ChannelDaoHelper extends AbstractDaoHelper {
 		channelInfo.setATSCMinorChan(atscMinorChannel );
 		channelInfo.setFormat( format );
 		channelInfo.setModulation( modulation );
-		channelInfo.setFrequency( frequency );
+		channelInfo.setFrequency( new Long(frequency) );
 		channelInfo.setFrequencyId( frequencyId );
 		channelInfo.setFrequencyTable(frequencyTable );
 		channelInfo.setFineTune( fineTune );

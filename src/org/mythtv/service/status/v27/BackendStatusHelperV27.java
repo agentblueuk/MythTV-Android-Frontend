@@ -21,17 +21,18 @@
  */
 package org.mythtv.service.status.v27;
 
+import android.content.ContentProviderOperation;
+import android.content.Context;
+import android.content.OperationApplicationException;
+import android.os.RemoteException;
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractBaseHelper;
 import org.mythtv.db.dvr.ProgramConstants;
 import org.mythtv.db.dvr.RecordingConstants;
-import org.mythtv.services.api.v027.status.beans.Program;
-import org.mythtv.services.api.v027.status.beans.Recording;
-import org.mythtv.db.frontends.model.Frontends;
 import org.mythtv.db.preferences.LocationProfileDaoHelper;
 import org.mythtv.service.dvr.v27.ProgramHelperV27;
 import org.mythtv.service.dvr.v27.RecordingHelperV27;
@@ -42,28 +43,28 @@ import org.mythtv.services.api.ETagInfo;
 import org.mythtv.services.api.MythServiceApiRuntimeException;
 import org.mythtv.services.api.connect.MythAccessFactory;
 import org.mythtv.services.api.v027.MythServicesTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import android.content.ContentProviderOperation;
-import android.content.Context;
-import android.content.OperationApplicationException;
-import android.os.RemoteException;
-import android.util.Log;
-import org.mythtv.services.api.v025.status.beans.Information;
+import org.mythtv.services.api.v027.status.beans.ArtworkInfo;
+import org.mythtv.services.api.v027.status.beans.ArtworkInfos;
 import org.mythtv.services.api.v027.status.beans.BackendStatus;
 import org.mythtv.services.api.v027.status.beans.Backends;
+import org.mythtv.services.api.v027.status.beans.ChannelInfo;
 import org.mythtv.services.api.v027.status.beans.Encoder;
 import org.mythtv.services.api.v027.status.beans.Encoders;
+import org.mythtv.services.api.v027.status.beans.Frontends;
 import org.mythtv.services.api.v027.status.beans.Group;
 import org.mythtv.services.api.v027.status.beans.Guide;
+import org.mythtv.services.api.v027.status.beans.Information;
 import org.mythtv.services.api.v027.status.beans.Job;
 import org.mythtv.services.api.v027.status.beans.JobQueue;
 import org.mythtv.services.api.v027.status.beans.Load;
 import org.mythtv.services.api.v027.status.beans.MachineInfo;
 import org.mythtv.services.api.v027.status.beans.Miscellaneous;
+import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.status.beans.Recording;
 import org.mythtv.services.api.v027.status.beans.Scheduled;
 import org.mythtv.services.api.v027.status.beans.Storage;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * @author Daniel Frey
@@ -475,25 +476,25 @@ public class BackendStatusHelperV27 extends AbstractBaseHelper {
 		Program program = new Program();
 		
 		try {
-			program.setAirDate( null != versionProgram.getAirDate() ? DateUtils.dateFormatter.print( versionProgram.getAirDate() ) : "" );
+//WJT			program.setAirDate( null != versionProgram.getAirDate() ? DateUtils.dateFormatter.print( versionProgram.getAirDate() ) : "" );
 		} catch( Exception e ) {
-			program.setAirDate( "" );
+//WJT			program.setAirDate( "" );
 		}
 		
 		program.setAudioProps( versionProgram.getAudioProps() );
 		program.setCategory( versionProgram.getCategory() );
 		program.setDescription( versionProgram.getDescription() );
 		program.setEndTime( versionProgram.getEndTime() );
-		program.setEpisode( null != versionProgram.getEpisode() && !"".equals( versionProgram.getEpisode() ) ? Integer.parseInt( versionProgram.getEpisode() ) : -1 );
+//WJT		program.setEpisode( null != versionProgram.getEpisode() && !"".equals( versionProgram.getEpisode() ) ? Integer.parseInt( versionProgram.getEpisode() ) : -1 );
 		program.setFilename( versionProgram.getFilename() );
-		program.setFileSize( null != versionProgram.getFileSize() && !"".equals( versionProgram.getFileSize() ) ? Long.parseLong( versionProgram.getFileSize() ) : -1 );
+//WJT		program.setFileSize( null != versionProgram.getFileSize() && !"".equals( versionProgram.getFileSize() ) ? Long.parseLong( versionProgram.getFileSize() ) : -1 );
 		program.setHostname( versionProgram.getHostname() );
 		program.setInetref( versionProgram.getInetref() );
 		program.setLastModified( versionProgram.getLastModified() );
 		program.setProgramFlags( versionProgram.getProgramFlags() );
 		program.setProgramId( versionProgram.getProgramId() );
 		program.setRepeat( versionProgram.isRepeat() );
-		program.setSeason( null != versionProgram.getSeason() && !"".equals( versionProgram.getSeason() ) ? Integer.parseInt( versionProgram.getSeason() ) : -1 );
+//WJT		program.setSeason( null != versionProgram.getSeason() && !"".equals( versionProgram.getSeason() ) ? Integer.parseInt( versionProgram.getSeason() ) : -1 );
 		program.setSeriesId( versionProgram.getSeriesId() );
 		program.setStars( versionProgram.getStars() );
 		program.setStartTime( versionProgram.getStartTime() );
@@ -653,7 +654,7 @@ public class BackendStatusHelperV27 extends AbstractBaseHelper {
 		channel.setSourceId( versionChannel.getSourceId() );
 		channel.setTransportId( versionChannel.getTransportId() );
 		channel.setUseEit( versionChannel.isUseEit() );
-		channel.setVisible( versionChannel.isVisable() );
+		channel.setVisable(versionChannel.isVisable() );
 		channel.setXmltvId( versionChannel.getXmltvId() );
 		
 		return channel;

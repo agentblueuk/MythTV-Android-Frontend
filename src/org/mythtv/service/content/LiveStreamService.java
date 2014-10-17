@@ -36,7 +36,7 @@ import org.mythtv.service.content.v27.LiveStreamHelperV27;
 import org.mythtv.service.util.NetworkHelper;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -316,13 +316,13 @@ public class LiveStreamService extends MythtvService {
 		switch( apiVersion ) {
 			case v027 :
 
-				created = LiveStreamHelperV27.getInstance().create( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
+				created = LiveStreamHelperV27.getInstance().create( this, locationProfile, program.getChannel().getChanId(), program.getStartTime() );
 
 				break;
 				
 			default :
 				
-				created = LiveStreamHelperV27.getInstance().create( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
+				created = LiveStreamHelperV27.getInstance().create( this, locationProfile, program.getChannel().getChanId(), program.getStartTime() );
 
 				break;
 		}
@@ -380,13 +380,13 @@ public class LiveStreamService extends MythtvService {
 		switch( apiVersion ) {
 			case v027 :
 
-				removed = LiveStreamHelperV27.getInstance().remove( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
+				removed = LiveStreamHelperV27.getInstance().remove( this, locationProfile, program.getChannel().getChanId(), program.getStartTime() );
 
 				break;
 				
 			default :
 				
-				removed = LiveStreamHelperV27.getInstance().remove( this, locationProfile, program.getChannelInfo().getChannelId(), program.getStartTime() );
+				removed = LiveStreamHelperV27.getInstance().remove( this, locationProfile, program.getChannel().getChanId(), program.getStartTime() );
 
 				break;
 		}

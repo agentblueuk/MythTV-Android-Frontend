@@ -21,21 +21,20 @@
  */
 package org.mythtv.db.dvr;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.services.api.v027.beans.RecRule;
-import org.mythtv.service.util.DateUtils;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalTime;
+import org.mythtv.client.ui.preferences.LocationProfile;
+import org.mythtv.db.AbstractDaoHelper;
+import org.mythtv.service.util.DateUtils;
+import org.mythtv.services.api.v027.beans.RecRule;
 
 /**
  * @author Daniel Frey
@@ -554,8 +553,8 @@ public class RecordingRuleDaoHelper extends AbstractDaoHelper {
 		recRule.setChanId( channelId );
 		recRule.setCallSign( callSign );
 		recRule.setFindDay( day );
-		recRule.setFindTime( time );
-		recRule.setFindId( findId );
+		recRule.setFindTime( new LocalTime(time) );
+//FIXME: not sure where this should be set		recRule.setFindId( findId );
 		recRule.setType( type );
 		recRule.setSearchType( searchType );
 		recRule.setRecPriority( recPriority );
@@ -651,8 +650,8 @@ public class RecordingRuleDaoHelper extends AbstractDaoHelper {
 		values.put( RecordingRuleConstants.FIELD_CHAN_ID, recRule.getChanId() );
 		values.put( RecordingRuleConstants.FIELD_CALLSIGN, recRule.getCallSign() );
 		values.put( RecordingRuleConstants.FIELD_DAY, recRule.getFindDay());
-		values.put( RecordingRuleConstants.FIELD_TIME, recRule.getFindTime() );
-		values.put( RecordingRuleConstants.FIELD_FIND_ID, recRule.getFindId() );
+// FIXME	values.put( RecordingRuleConstants.FIELD_TIME, recRule.getFindTime());
+// FIXME	values.put( RecordingRuleConstants.FIELD_FIND_ID, recRule.getFindId() );
 		values.put( RecordingRuleConstants.FIELD_TYPE, recRule.getType() );
 		values.put( RecordingRuleConstants.FIELD_SEARCH_TYPE, recRule.getSearchType() );
 		values.put( RecordingRuleConstants.FIELD_REC_PRIORITY, recRule.getRecPriority() );

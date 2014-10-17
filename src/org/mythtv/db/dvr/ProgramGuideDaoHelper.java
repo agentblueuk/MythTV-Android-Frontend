@@ -26,7 +26,7 @@ import org.joda.time.DateTimeZone;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.services.api.v027.beans.ChannelInfo;
 import org.mythtv.services.api.v027.beans.ProgramGuide;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 
 /**
  * @author Daniel Frey

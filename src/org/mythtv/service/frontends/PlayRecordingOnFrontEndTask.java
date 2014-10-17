@@ -22,7 +22,7 @@
 package org.mythtv.service.frontends;
 
 import org.mythtv.client.ui.preferences.LocationProfile;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 import org.mythtv.service.util.NetworkHelper;
 import org.mythtv.services.api.ApiVersion;
 import org.mythtv.services.api.ETagInfo;
@@ -98,7 +98,7 @@ public class PlayRecordingOnFrontEndTask extends AsyncTask<String, Void, Boolean
 				org.mythtv.services.api.v027.MythServicesTemplate mythServicesTemplateV27 = (org.mythtv.services.api.v027.MythServicesTemplate) MythAccessFactory.getServiceTemplateApiByVersion( apiVersion, url );
 
 				if( null != mythServicesTemplateV27 ) {
-					ResponseEntity<org.mythtv.services.api.Bool> responseV27 = mythServicesTemplateV27.frontendOperations().playRecording( mProgram.getChannelInfo().getChannelId(), mProgram.getRecording().getStartTimestamp(), ETagInfo.createEmptyETag() );
+					ResponseEntity<org.mythtv.services.api.Bool> responseV27 = mythServicesTemplateV27.frontendOperations().playRecording( mProgram.getChannel().getChanId(), mProgram.getRecording().getStartTs(), ETagInfo.createEmptyETag() );
 					if( responseV27.getStatusCode().equals( HttpStatus.OK ) ) {
 
 						if( null != responseV27.getBody() ) {

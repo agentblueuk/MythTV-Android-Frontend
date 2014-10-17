@@ -117,7 +117,7 @@ public class BackendStatusService extends MythtvService {
 		
 		Intent completeIntent = new Intent( ACTION_COMPLETE );
 		completeIntent.putExtra( EXTRA_COMPLETE, "Backend Status Download Service Finished" );
-		completeIntent.putExtra( EXTRA_COMPLETE_DATA, mBackendStatus );
+// FIXME:		completeIntent.putExtra( EXTRA_COMPLETE_DATA, mBackendStatus );
 		completeIntent.putExtra( EXTRA_COMPLETE_OFFLINE, Boolean.FALSE );
 		
 		sendBroadcast( completeIntent );

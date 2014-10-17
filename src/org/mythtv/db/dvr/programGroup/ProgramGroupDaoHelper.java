@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 import org.mythtv.provider.MythtvProvider;
 import org.mythtv.service.util.DateUtils;
 import org.mythtv.services.utils.ArticleCleaner;
@@ -298,7 +298,7 @@ public class ProgramGroupDaoHelper extends AbstractDaoHelper {
 			
 			if( null != program.getRecording() ) {
 				
-				if( null != program.getRecording().getRecordingGroup() && !"livetv".equalsIgnoreCase( program.getRecording().getRecordingGroup() ) && !"deleted".equalsIgnoreCase( program.getRecording().getRecordingGroup() ) ) {
+				if( null != program.getRecording().getRecGroup() && !"livetv".equalsIgnoreCase( program.getRecording().getRecGroup() ) && !"deleted".equalsIgnoreCase( program.getRecording().getRecGroup() ) ) {
 					String cleaned = ArticleCleaner.clean( program.getTitle() );
 					if( !programGroups.containsKey( cleaned ) ) {
 						

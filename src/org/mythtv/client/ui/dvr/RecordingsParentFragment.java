@@ -25,7 +25,7 @@ import org.mythtv.R;
 import org.mythtv.client.ui.AbstractMythFragment;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.dvr.RecordedDaoHelper;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 import org.mythtv.db.dvr.programGroup.ProgramGroup;
 import org.mythtv.db.dvr.programGroup.ProgramGroupConstants;
 import org.mythtv.db.dvr.programGroup.ProgramGroupDaoHelper;
@@ -241,7 +241,7 @@ public class RecordingsParentFragment extends AbstractMythFragment implements
 			}
 
 			if( null != selectedProgram ) {
-				onEpisodeSelected( selectedProgram.getChannelInfo().getChannelId(), selectedProgram.getStartTime() );
+				onEpisodeSelected( selectedProgram.getChannel().getChanId(), selectedProgram.getStartTime() );
 			}
 
 		} else {
@@ -315,8 +315,8 @@ public class RecordingsParentFragment extends AbstractMythFragment implements
 
 				if( null != selectedProgram ) {
 
-					if( null != selectedProgram.getStartTime() && null != selectedProgram.getChannelInfo() ) {
-						onEpisodeSelected( selectedProgram.getChannelInfo().getChannelId(), selectedProgram.getStartTime() );
+					if( null != selectedProgram.getStartTime() && null != selectedProgram.getChannel() ) {
+						onEpisodeSelected( selectedProgram.getChannel().getChanId(), selectedProgram.getStartTime() );
 					}
 				}
 

@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractDaoHelper;
-import org.mythtv.services.api.v027.status.beans.Recording;
+import org.mythtv.services.api.v027.beans.RecordingInfo;
 import org.mythtv.service.util.DateUtils;
 
 import android.content.ContentUris;
@@ -83,7 +83,7 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param sortOrder
 	 * @return
 	 */
-	public List<Recording> findAll( final Context context, String[] projection, String selection, String[] selectionArgs, String sortOrder, final String table ) {
+	public List<RecordingInfo> findAll( final Context context, String[] projection, String selection, String[] selectionArgs, String sortOrder, final String table ) {
 //		Log.d( TAG, "findAll : enter" );
 		
 		if( null == context ) {
@@ -92,11 +92,11 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 		
 		RecordingConstants.ContentDetails details = RecordingConstants.ContentDetails.getValueFromParent( table );
 
-		List<Recording> recordings = new ArrayList<Recording>();
+		List<RecordingInfo> recordings = new ArrayList<RecordingInfo>();
 		
 		Cursor cursor = context.getContentResolver().query( details.getContentUri(), projection, selection, selectionArgs, sortOrder );
 		while( cursor.moveToNext() ) {
-			Recording recording = convertCursorToRecording( cursor, table );
+			RecordingInfo recording = convertCursorToRecording( cursor, table );
 			recordings.add( recording );
 		}
 		cursor.close();
@@ -108,14 +108,14 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	/**
 	 * @return
 	 */
-	public List<Recording> finalAll( final Context context, final String table ) {
+	public List<RecordingInfo> finalAll( final Context context, final String table ) {
 //		Log.d( TAG, "findAll : enter" );
 		
 		if( null == context ) {
 			throw new IllegalArgumentException( "Context is required" );
 		}
 		
-		List<Recording> recordings = findAll( context, null, null, null, null, table );
+		List<RecordingInfo> recordings = findAll( context, null, null, null, null, table );
 		
 //		Log.d( TAG, "findAll : exit" );
 		return recordings;
@@ -129,7 +129,7 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param sortOrder
 	 * @return
 	 */
-	public Recording findOne( final Context context, final Long id, String[] projection, String selection, String[] selectionArgs, String sortOrder, final String table ) {
+	public RecordingInfo findOne( final Context context, final Long id, String[] projection, String selection, String[] selectionArgs, String sortOrder, final String table ) {
 //		Log.d( TAG, "findOne : enter" );
 		
 		if( null == context ) {
@@ -138,7 +138,7 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 		
 		RecordingConstants.ContentDetails details = RecordingConstants.ContentDetails.getValueFromParent( table );
 
-		Recording recording = null;
+		RecordingInfo recording = null;
 		
 		Uri uri = details.getContentUri();
 		if( null != id && id > 0 ) {
@@ -159,14 +159,14 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param id
 	 * @return
 	 */
-	public Recording findOne( final Context context, final Long id, final String table ) {
+	public RecordingInfo findOne( final Context context, final Long id, final String table ) {
 //		Log.d( TAG, "findOne : enter" );
 		
 		if( null == context ) {
 			throw new IllegalArgumentException( "Context is required" );
 		}
 		
-		Recording recording = findOne( context, id, null, null, null, null, table );
+		RecordingInfo recording = findOne( context, id, null, null, null, null, table );
 		
 //		Log.d( TAG, "findOne : exit" );
 		return recording;
@@ -177,7 +177,7 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param program
 	 * @return
 	 */
-	protected int save( final Context context, final Uri uri, final LocationProfile locationProfile, final DateTime startTime, Recording recording, final String table ) {
+	protected int save( final Context context, final Uri uri, final LocationProfile locationProfile, final DateTime startTime, RecordingInfo recording, final String table ) {
 		Log.v( TAG, "save : enter" );
 
 		if( null == context ) {
@@ -278,7 +278,7 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param cursor
 	 * @return
 	 */
-	public static Recording convertCursorToRecording( final Cursor cursor, final String table ) {
+	public static RecordingInfo convertCursorToRecording( final Cursor cursor, final String table ) {
 //		Log.v( TAG, "convertCursorToRecording : enter" );
 
 		RecordingConstants.ContentDetails details = RecordingConstants.ContentDetails.getValueFromParent( table );
@@ -340,18 +340,18 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 		}
 		
 
-		Recording recording = new Recording();
+		RecordingInfo recording = new RecordingInfo();
 		recording.setStatus( status );
 		recording.setPriority( priority );
-		recording.setStartTimestamp( startTimestamp );
-		recording.setEndTimestamp( endTimestamp );
+		recording.setStartTs(startTimestamp );
+		recording.setEndTs(endTimestamp );
 		recording.setRecordId( recordId );
-		recording.setRecordingGroup( recordingGroup );
+		recording.setRecGroup(recordingGroup );
 		recording.setPlayGroup( playGroup );
 		recording.setStorageGroup( storageGroup );
-		recording.setRecordingType( recordingType );
-		recording.setDuplicateInType( duplicateInType );
-		recording.setDuplicateMethod( duplicateMethod );
+		recording.setRecType(recordingType );
+		recording.setDupInType(duplicateInType );
+		recording.setDupMethod(duplicateMethod );
 		recording.setEncoderId( encoderId );
 		recording.setProfile( profile );
 		
@@ -363,18 +363,18 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 	 * @param recording
 	 * @return
 	 */
-	public static ContentValues convertRecordingToContentValues( final LocationProfile locationProfile, final DateTime lastModified, final DateTime startTime, final Recording recording ) {
+	public static ContentValues convertRecordingToContentValues( final LocationProfile locationProfile, final DateTime lastModified, final DateTime startTime, final RecordingInfo recording ) {
 //		Log.v( TAG, "convertRecordingToContentValues : enter" );
 		
 		DateTime startTimestamp = DateUtils.convertUtc( new DateTime( System.currentTimeMillis() ) );
-		if( null != recording.getStartTimestamp() ) {
-			startTimestamp = recording.getStartTimestamp();
+		if( null != recording.getStartTs()) {
+			startTimestamp = recording.getStartTs();
 		}
 //		Log.v( TAG, "convertRecordingToContentValues : startTimestamp = " + startTimestamp.toString() );
 		
 		DateTime endTimestamp = DateUtils.convertUtc( new DateTime( System.currentTimeMillis() ) );
-		if( null != recording.getStartTimestamp() ) {
-			endTimestamp = recording.getEndTimestamp();
+		if( null != recording.getStartTs()) {
+			endTimestamp = recording.getEndTs();
 		}
 		
 		ContentValues values = new ContentValues();
@@ -383,12 +383,12 @@ public class RecordingDaoHelper extends AbstractDaoHelper {
 		values.put( RecordingConstants.FIELD_START_TS, startTimestamp.getMillis() );
 		values.put( RecordingConstants.FIELD_END_TS, endTimestamp.getMillis() );
 		values.put( RecordingConstants.FIELD_RECORD_ID, recording.getRecordId() );
-		values.put( RecordingConstants.FIELD_REC_GROUP, null != recording.getRecordingGroup() ? recording.getRecordingGroup() : "" );
+		values.put( RecordingConstants.FIELD_REC_GROUP, null != recording.getRecGroup()? recording.getRecGroup() : "" );
 		values.put( RecordingConstants.FIELD_PLAY_GROUP, null != recording.getPlayGroup() ? recording.getPlayGroup() : "" );
 		values.put( RecordingConstants.FIELD_STORAGE_GROUP, null != recording.getStorageGroup() ? recording.getStorageGroup() : "" );
-		values.put( RecordingConstants.FIELD_REC_TYPE, recording.getRecordingType() );
-		values.put( RecordingConstants.FIELD_DUP_IN_TYPE, recording.getDuplicateInType() );
-		values.put( RecordingConstants.FIELD_DUP_METHOD, recording.getDuplicateMethod() );
+		values.put( RecordingConstants.FIELD_REC_TYPE, recording.getRecType() );
+		values.put( RecordingConstants.FIELD_DUP_IN_TYPE, recording.getDupInType() );
+		values.put( RecordingConstants.FIELD_DUP_METHOD, recording.getDupMethod() );
 		values.put( RecordingConstants.FIELD_ENCODER_ID, recording.getEncoderId() );
 		values.put( RecordingConstants.FIELD_PROFILE, null != recording.getProfile() ? recording.getProfile() : "" );
 		values.put( RecordingConstants.FIELD_START_TIME, startTime.getMillis() );

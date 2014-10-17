@@ -39,7 +39,7 @@ import org.mythtv.db.content.LiveStreamDaoHelper;
 import org.mythtv.db.dvr.RecordedDaoHelper;
 import org.mythtv.service.content.GetLiveStreamTask;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.Program;
 
 /**
  * @author John Baab
@@ -184,7 +184,7 @@ public class VideoActivity extends AbstractMythtvFragmentActivity implements Get
 		temp = temp.replaceAll( "/$", "" );
 		String url = "";
 		if( raw ) {
-			url = temp + "/Content/GetFile?StorageGroup=" + program.getRecording().getStorageGroup() + "&FileName=" + program.getFilename();
+			url = temp + "/Content/GetFile?StorageGroup=" + program.getRecording().getStorageGroup() + "&FileName=" + program.getFileName();
 		} else {
 			url = temp + liveStreamInfo.getRelativeURL();
 		}

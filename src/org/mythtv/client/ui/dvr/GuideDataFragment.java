@@ -33,8 +33,7 @@ import org.mythtv.db.dvr.ProgramConstants;
 import org.mythtv.db.dvr.ProgramDaoHelper;
 import org.mythtv.db.dvr.ProgramGuideDaoHelper;
 import org.mythtv.db.dvr.RecordingConstants;
-import org.mythtv.services.api.v027.status.beans.Program;
-import org.mythtv.services.api.v027.status.beans.Recording;
+import org.mythtv.services.api.v027.beans.Program;
 import org.mythtv.service.util.DateUtils;
 
 import android.animation.ValueAnimator;
@@ -53,6 +52,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.mythtv.services.api.v027.beans.RecordingInfo;
 
 /**
  * @author dmfrey
@@ -285,7 +285,7 @@ public class GuideDataFragment extends MythtvListFragment implements LoaderManag
 	        	mHolder.subTitle.setText( program.getSubTitle() );
 	        	mHolder.startTime.setText( DateUtils.getTimeWithLocaleFormatting( program.getStartTime(), mMainApplication.getClockType() ) );
 	        	
-	        	Recording rec = program.getRecording();
+	        	RecordingInfo rec = program.getRecording();
 	        	if( null != rec ) {
 
 	        		switch( rec.getStatus() ) {

@@ -24,9 +24,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractDaoHelper;
 import org.mythtv.db.channel.ChannelDaoHelper;
@@ -35,8 +37,8 @@ import org.mythtv.db.content.LiveStreamDaoHelper;
 import org.mythtv.service.util.DateUtils;
 import org.mythtv.services.api.v027.beans.ChannelInfo;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
-import org.mythtv.services.api.v027.status.beans.Recording;
+import org.mythtv.services.api.v027.beans.Program;
+import org.mythtv.services.api.v027.beans.RecordingInfo;
 
 /**
  * @author Daniel Frey
@@ -141,7 +143,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 
 		String[] projection = new String[] { ProgramConstants._ID };
 		String selection = table + "." + ProgramConstants.FIELD_CHANNEL_ID + " = ? AND " + table + "." + ProgramConstants.FIELD_START_TIME + " = ?";
-		String[] selectionArgs = new String[] { String.valueOf( program.getChannelInfo().getChannelId() ), String.valueOf( program.getStartTime().getMillis() ) };
+		String[] selectionArgs = new String[] { String.valueOf( program.getChannel().getChanId() ), String.valueOf( program.getStartTime().getMillis() ) };
 		
 		selection = appendLocationHostname( context, locationProfile, selection, table );
 
@@ -216,7 +218,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		}
 		
 		String selection = ProgramConstants.FIELD_CHANNEL_ID + " = ? AND " + ProgramConstants.FIELD_START_TIME + " = ?";
-		String[] selectionArgs = new String[] { String.valueOf( program.getChannelInfo().getChannelId() ), String.valueOf( program.getStartTime().getMillis() ) };
+		String[] selectionArgs = new String[] { String.valueOf( program.getChannel().getChanId() ), String.valueOf( program.getStartTime().getMillis() ) };
 
 		selection = appendLocationHostname( context, locationProfile, selection, null );
 
@@ -242,13 +244,13 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 
 //		Long id = null;
 		DateTime startTime = null, endTime = null, lastModified = null;
-		String title = "", subTitle = "", category = "", categoryType = "", seriesId = "", programFlags = "", programId = "", hostname = "", filename = "", description = "", inetref = "", masterHostname = "", airDate = "";
-		int repeat = -1, videoProps = -1, audioProps = -1, subProps = -1, season = -1, episode = -1;
+		String title = "", subTitle = "", category = "", categoryType = "", seriesId = "", programId = "", hostname = "", filename = "", description = "", inetref = "", masterHostname = "", airDate = "";
+		int repeat = -1, videoProps = -1, audioProps = -1, subProps = -1, season = -1, episode = -1, programFlags = -1;
 		long fileSize = -1;
-		float stars = 0.0f;
+		Double stars = 0.0;
 		
 		ChannelInfo channelInfo = null;
-		Recording recording = null;
+		RecordingInfo recording = null;
 		LiveStreamInfo liveStreamInfo = null;
 		
 //		if( cursor.getColumnIndex( ProgramConstants._ID ) != -1 ) {
@@ -304,7 +306,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		}
 		
 		if( cursor.getColumnIndex( ProgramConstants.FIELD_STARS ) != -1 ) {
-			stars = cursor.getFloat( cursor.getColumnIndex( ProgramConstants.FIELD_STARS ) );
+			stars = cursor.getDouble(cursor.getColumnIndex( ProgramConstants.FIELD_STARS ) );
 		}
 		
 		if( cursor.getColumnIndex( ProgramConstants.FIELD_FILE_SIZE ) != -1 ) {
@@ -316,7 +318,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		}
 		
 		if( cursor.getColumnIndex( ProgramConstants.FIELD_PROGRAM_FLAGS ) != -1 ) {
-			programFlags = cursor.getString( cursor.getColumnIndex( ProgramConstants.FIELD_PROGRAM_FLAGS ) );
+			programFlags = cursor.getInt(cursor.getColumnIndex( ProgramConstants.FIELD_PROGRAM_FLAGS ) );
 		}
 		
 		if( cursor.getColumnIndex( ProgramConstants.FIELD_HOSTNAME ) != -1 ) {
@@ -369,7 +371,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		program.setTitle( title );
 		program.setSubTitle( subTitle );
 		program.setCategory( category );
-		program.setCategoryType( categoryType );
+		program.setCategory( categoryType );
 		program.setRepeat( repeat == 1 ? true : false );
 		program.setVideoProps( videoProps );
 		program.setAudioProps( audioProps );
@@ -380,14 +382,14 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		program.setFileSize( fileSize );
 		program.setLastModified( lastModified );
 		program.setProgramFlags( programFlags );
-		program.setHostname( hostname );
-		program.setFilename( filename );
-		program.setAirDate( airDate );
+		program.setHostName( hostname );
+		program.setFileName( filename );
+		program.setAirdate( LocalDate.parse(airDate) );
 		program.setDescription( description );
 		program.setInetref( inetref );
 		program.setSeason( season );
 		program.setEpisode( episode );
-		program.setChannelInfo( channelInfo );
+		program.setChannel( channelInfo );
 		program.setRecording( recording );
 		
 //		Log.v( TAG, "convertCursorToProgram : id=" + id + ", program=" + program.toString() );
@@ -448,7 +450,7 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		values.put( ProgramConstants.FIELD_TITLE, null != program.getTitle() ? program.getTitle() : "" );
 		values.put( ProgramConstants.FIELD_SUB_TITLE, null != program.getSubTitle() ? program.getSubTitle() : "" );
 		values.put( ProgramConstants.FIELD_CATEGORY, null != program.getCategory() ? program.getCategory() : "" );
-		values.put( ProgramConstants.FIELD_CATEGORY_TYPE, null != program.getCategoryType() ? program.getCategoryType() : "" );
+		values.put( ProgramConstants.FIELD_CATEGORY_TYPE, null != program.getCategory() ? program.getCategory() : "" );
 		values.put( ProgramConstants.FIELD_REPEAT, program.isRepeat() ? 1 : 0 );
 		values.put( ProgramConstants.FIELD_VIDEO_PROPS, program.getVideoProps() );
 		values.put( ProgramConstants.FIELD_AUDIO_PROPS, program.getAudioProps() );
@@ -459,14 +461,14 @@ public abstract class ProgramDaoHelper extends AbstractDaoHelper {
 		values.put( ProgramConstants.FIELD_FILE_SIZE, program.getFileSize() );
 		values.put( ProgramConstants.FIELD_LAST_MODIFIED, null != program.getLastModified() ? program.getLastModified().getMillis() : -1 );
 		values.put( ProgramConstants.FIELD_PROGRAM_FLAGS, program.getProgramFlags() );
-		values.put( ProgramConstants.FIELD_HOSTNAME, null != program.getHostname() ? program.getHostname() : "" );
-		values.put( ProgramConstants.FIELD_FILENAME, null != program.getFilename() ? program.getFilename() : "" );
-		values.put( ProgramConstants.FIELD_AIR_DATE, null != program.getAirDate() ? program.getAirDate() : "" );
+		values.put( ProgramConstants.FIELD_HOSTNAME, null != program.getHostName() ? program.getHostName() : "" );
+		values.put( ProgramConstants.FIELD_FILENAME, null != program.getFileName() ? program.getFileName() : "" );
+		values.put( ProgramConstants.FIELD_AIR_DATE, null != program.getAirdate() ? program.getAirdate().toString() : "" );
 		values.put( ProgramConstants.FIELD_DESCRIPTION, null != program.getDescription() ? program.getDescription() : "" );
 		values.put( ProgramConstants.FIELD_INETREF, null != program.getInetref() ? program.getInetref() : "" );
 		values.put( ProgramConstants.FIELD_SEASON, program.getSeason() );
 		values.put( ProgramConstants.FIELD_EPISODE, program.getEpisode() );
-		values.put( ProgramConstants.FIELD_CHANNEL_ID, null != program.getChannelInfo() ? program.getChannelInfo().getChannelId() : -1 );
+		values.put( ProgramConstants.FIELD_CHANNEL_ID, null != program.getChannel() ? program.getChannel().getChanId() : -1 );
 		values.put( ProgramConstants.FIELD_RECORD_ID, null != program.getRecording() ? program.getRecording().getRecordId() : -1 );
 		values.put( ProgramConstants.FIELD_IN_ERROR, inError ? 1 : 0 );
 		values.put( ProgramConstants.FIELD_MASTER_HOSTNAME, locationProfile.getHostname() );

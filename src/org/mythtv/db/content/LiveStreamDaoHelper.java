@@ -33,8 +33,8 @@ import org.joda.time.DateTime;
 import org.mythtv.client.ui.preferences.LocationProfile;
 import org.mythtv.db.AbstractDaoHelper;
 import org.mythtv.services.api.v027.beans.LiveStreamInfo;
-import org.mythtv.services.api.v027.status.beans.ChannelInfo;
-import org.mythtv.services.api.v027.status.beans.Program;
+import org.mythtv.services.api.v027.beans.ChannelInfo;
+import org.mythtv.services.api.v027.beans.Program;
 
 /**
  * @author Daniel Frey
@@ -235,7 +235,7 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 			return null;
 		}
 
-		if( null == program.getChannelInfo() ) {
+		if( null == program.getChannel() ) {
 			Log.d( TAG, "findByProgram : channel has not been set" );
 			
 			return null;
@@ -249,7 +249,7 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 		
 		try {
 			String selection = LiveStreamConstants.FIELD_CHAN_ID + " = ? AND " + LiveStreamConstants.FIELD_START_TIME + " = ?";
-			String[] selectionArgs = new String[] { String.valueOf( program.getChannelInfo().getChannelId() ), String.valueOf( program.getStartTime().getMillis() ) };
+			String[] selectionArgs = new String[] { String.valueOf( program.getChannel().getChanId() ), String.valueOf( program.getStartTime().getMillis() ) };
 
 			LiveStreamInfo liveStreamInfo = findOne( context, locationProfile, null, null, selection, selectionArgs, null );
 			if( null != liveStreamInfo ) {
@@ -536,8 +536,8 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 				program.setStartTime( startTime );
 				
 				ChannelInfo channelInfo = new ChannelInfo();
-				channelInfo.setChannelId( channelId );
-				program.setChannelInfo( channelInfo );
+				channelInfo.setChanId( channelId );
+				program.setChannel( channelInfo );
 				
 				contentValues = convertLiveStreamInfoToContentValues( locationProfile, liveStreamInfo, program );
 				contentValuesArray.add( contentValues );
@@ -583,7 +583,7 @@ public class LiveStreamDaoHelper extends AbstractDaoHelper {
 		values.put( LiveStreamConstants.FIELD_SOURCE_WIDTH, liveStreamInfo.getSourceWidth() );
 		values.put( LiveStreamConstants.FIELD_SOURCE_HEIGHT, liveStreamInfo.getSourceHeight() );
 		values.put( LiveStreamConstants.FIELD_AUDIO_ONLY_BITRATE, liveStreamInfo.getAudioOnlyBitrate() );
-		values.put( LiveStreamConstants.FIELD_CHAN_ID, program.getChannelInfo().getChannelId() );
+		values.put( LiveStreamConstants.FIELD_CHAN_ID, program.getChannel().getChanId());
 		values.put( LiveStreamConstants.FIELD_START_TIME, program.getStartTime().getMillis() );
 		values.put( LiveStreamConstants.FIELD_MASTER_HOSTNAME, locationProfile.getHostname() );
 		
